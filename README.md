@@ -1,7 +1,3 @@
-¡Por supuesto! Aquí tienes el archivo `README.md` en inglés:
-
----
-
 # IoT Project with ESP32 and Firebase: Temperature and Humidity Monitoring
 
 This repository contains two projects that form a complete IoT solution for monitoring temperature and humidity using an ESP32 and a KY-015 (DHT11) sensor. The data is sent to Firebase for real-time storage, and a Firebase-based frontend is used for viewing the collected data.
