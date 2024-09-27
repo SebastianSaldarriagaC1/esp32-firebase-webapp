@@ -8,11 +8,10 @@
   Based in the RTDB Basic Example by Firebase-ESP-Client library by mobizt
   https://github.com/mobizt/Firebase-ESP-Client/blob/main/examples/RTDB/Basic/Basic.ino
 */
-
 #include <Arduino.h>
-// Remember to update include path in platformio.ini
 #include "wifi/WifiManager.h"
 #include "firebase/FirebaseManager.h"
+#include "dht/DHTManager.h"
 
 // Create the secrets.h file with the following content:
 // #define WIFI_SSID "your-ssid"
@@ -21,23 +20,21 @@
 // #define DATABASE_URL "your-database-url"
 #include "secrets.h"
 
-// Create WiFi and Firebase manager objects
 WiFiManager wifiManager;
 FirebaseManager firebaseManager;
+DHTManager dhtManager(2); // GPIO pin 2
 
 unsigned long sendDataPrevMillis = 0;
-int count = 0;
 
 void setup()
 {
-  // Start Serial Monitor
   Serial.begin(115200);
 
-  // Connect to Wi-Fi
   wifiManager.connectWiFi(WIFI_SSID, WIFI_PASSWORD);
 
-  // Initialize Firebase
   firebaseManager.initFirebase(API_KEY, DATABASE_URL);
+
+  dhtManager.begin();
 }
 
 void loop()
@@ -46,11 +43,19 @@ void loop()
   {
     sendDataPrevMillis = millis();
 
-    // Send integer value to Firebase
-    firebaseManager.sendInt("web/int", count);
-    count++;
+    // Read temperature and humidity
+    float temperature = dhtManager.readTemperature();
+    float humidity = dhtManager.readHumidity();
 
-    // Send float value to Firebase
-    firebaseManager.sendFloat("web/float", 0.01 + random(0, 100));
+    // Check if readings failed
+    if (isnan(temperature) || isnan(humidity))
+    {
+      Serial.println("Failed to read from DHT sensor!");
+      return;
+    }
+
+    // Send temperature and humidity data to Firebase
+    firebaseManager.sendFloat("environment/temperature", temperature);
+    firebaseManager.sendFloat("environment/humidity", humidity);
   }
 }
