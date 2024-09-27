@@ -1,36 +1,37 @@
 // Complete Project Details at: https://RandomNerdTutorials.com/
 
 // Database Paths
-var dataFloatPath = "web/float";
-var dataIntPath = "web/int";
+var dataHumidityPath = "environment/humidity";
+var dataTemperaturePath = "environment/temperature";
 
 // Get a database reference
-const databaseFloat = database.ref(dataFloatPath);
-const databaseInt = database.ref(dataIntPath);
+const databaseHumidity = database.ref(dataHumidityPath);
+const databaseTemperature = database.ref(dataTemperaturePath);
 
 // Variables to save database current values
-var floatReading;
-var intReading;
+var humidityReading;
+var temperatureReading;
 
 // Attach an asynchronous callback to read the data
-databaseFloat.on(
+databaseHumidity.on(
   "value",
   (snapshot) => {
-    floatReading = snapshot.val();
-    console.log(floatReading);
-    document.getElementById("reading-float").innerHTML = floatReading;
+    humidityReading = snapshot.val();
+    console.log(humidityReading);
+    document.getElementById("reading-humidity").innerHTML = humidityReading;
   },
   (errorObject) => {
     console.log("The read failed: " + errorObject.name);
   }
 );
 
-databaseInt.on(
+databaseTemperature.on(
   "value",
   (snapshot) => {
-    intReading = snapshot.val();
-    console.log(intReading);
-    document.getElementById("reading-int").innerHTML = intReading;
+    temperatureReading = snapshot.val();
+    console.log(temperatureReading);
+    document.getElementById("reading-temperature").innerHTML =
+      temperatureReading;
   },
   (errorObject) => {
     console.log("The read failed: " + errorObject.name);

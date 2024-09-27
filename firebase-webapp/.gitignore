@@ -67,6 +67,3 @@ node_modules/
 
 # dataconnect generated files
 .dataconnect
-
-# firebaseConfig file with firebase credentials
-public/firebaseConfig.js 

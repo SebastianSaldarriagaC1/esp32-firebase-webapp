@@ -1,31 +1,49 @@
-<!-- Complete Project Details at: https://RandomNerdTutorials.com/ -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ESP Firebase App</title>
+    <title>ESP32 Firebase Real-time Monitoring</title>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-        https://firebase.google.com/docs/web/setup#available-libraries -->
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
 
     <script>
-      // REPLACE WITH YOUR web app's Firebase configuration
-      import firebaseConfig from "./firebaseConfig.js";
+      var firebaseConfig = {
+        apiKey: "AIzaSyCK-kp741NDnPTgUxm42DL7xZ564y1eVtY",
+        authDomain: "esp32-webapp-27b6f.firebaseapp.com",
+        databaseURL: "https://esp32-webapp-27b6f-default-rtdb.firebaseio.com",
+        projectId: "esp32-webapp-27b6f",
+        storageBucket: "esp32-webapp-27b6f.appspot.com",
+        messagingSenderId: "73732009488",
+        appId: "1:73732009488:web:1d25315ef5ce92cabba495",
+      };
 
       // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
       var database = firebase.database();
     </script>
     <script src="app.js" defer></script>
+
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <h1>ESP32 Firebase Web App Example</h1>
-    <p>Reading int: <span id="reading-int"></span></p>
-    <p>Reading float: <span id="reading-float"></span></p>
+    <h1>Real-time Monitoring</h1>
+    <div id="readings">
+      <p>Reading Humidity: <span id="reading-humidity">Loading...</span></p>
+      <p>
+        Reading Temperature: <span id="reading-temperature">Loading...</span>
+      </p>
+    </div>
+    <p style="margin-top: 20px; color: #555">
+      Based on the project from
+      <a
+        href="https://RandomNerdTutorials.com/"
+        target="_blank"
+        style="color: #5c6bc0"
+        >Random Nerd Tutorials</a
+      >.
+    </p>
   </body>
 </html>
